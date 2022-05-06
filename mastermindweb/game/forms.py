@@ -18,11 +18,11 @@ class GuessingForm(FlaskForm):
     submit = SubmitField('Guess!')
 
     def validate_guess(form, field, curr_level):
-        if not field or len(str(field)) != gamesettings[curr_level][0]: return False
+        if not field or len(str(field)) != gamesettings[curr_level].length: return False
         
         guess = str(field)
         for c in guess:
-            if not c.isdigit():
+            if not c.isdigit() or int(c) > gamesettings[curr_level].number_diff - 1: #8 different digits, 7 is top
                 return False
         return True
 

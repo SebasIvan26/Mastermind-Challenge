@@ -179,3 +179,4 @@ mastermindweb/migrations/README
 mastermindweb/migrations/script.py.mako
 mastermindweb/data.sqlite
 mastermindweb/migrations/versions/30c366a50874_first_migration.py
+mastermindweb/configkeys.py

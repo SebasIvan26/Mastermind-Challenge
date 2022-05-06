@@ -1,9 +1,11 @@
-import random
+import json
+import requests
 from mastermindweb import app
 from flask import Flask, session
 from flask_session import Session
 from flask import render_template, url_for, flash, redirect, request, Blueprint
-from collections import namedtuple
+from collections import namedtuple, Counter
+from mastermindweb.configkeys import api_key
 
 
 gaming = Blueprint('game', __name__)
@@ -26,9 +28,6 @@ Combination = namedtuple('Combination', ['length', 'number_diff'])
 # REDS --> represents correct number in correct position
 # WHITES --> represesents correct number in wrong position
 Position = namedtuple('Position', ['REDS', 'WHITES'])
-
-
-
 
 
 # sets combination settings and criterias
@@ -76,20 +75,43 @@ def calculateposition(user_guess):
     return Position(reds, whites) if not None else Position(0,0)
 
 
-# Combination length --> represents how many digits combination can contain
+# combination_len --> represents how many digits combination can contain
 # numberof_combination --> represesents the total different numbers combination can have
 def generatenumbercombination(combination_len, numberof_combination):
-    code_combination = ""
-    for i in range(combination_len):
-        code_combination += str(random.randint(0, numberof_combination-1))
+    url = 'https://api.random.org/json-rpc/1/invoke'    # API enpoint
+
+    #Query Parameters to filter returned data
+    data = {'jsonrpc':'2.0','method':'generateIntegers','params': {'apiKey':api_key,'n':combination_len,'min':0,'max':numberof_combination - 1,'replacement':'true','base':10},'id':24565}
+
+    params = json.dumps(data) #Convert dict to json format
+    response = requests.get(url,params) # Inititate " GET " request
+
+
+    try:
+        response = requests.post(url,params, timeout=5)
+        response.raise_for_status()
+    except requests.exceptions.HTTPError as errh: # raised if there is a 404 error
+        print(errh)
+    except requests.exceptions.ConnectionError as errc: # raised if no response from server
+        print(errc)
+    except requests.exceptions.Timeout as errt: # raised if request doesn't complete within alloted time
+        print(errt)
+    except requests.exceptions.RequestException as err: #raised if hhtp error 
+        print(err)
+
     
-    #Add response key to session
+    jsondict = Counter(response.json()) #Obtain response in json/dictionnary format
+    data = jsondict['result']['random']['data'] # get value in key data
+    code_combination = ''.join(map(str,data)) if isinstance(data, list) else '' # Convert List[int] -> string 
+
+
+    #Add response/answer to session
     session["answer"] = code_combination
 
 
 # Get hints in decreasing order of total position found #
 # Format: List:tuple:[(user_guess, correctpos, wrongpos)]
 def gethints():
-    return sorted(session['guesses'], key=lambda x: x[1] + x[2], reverse=True)
+    return session['guesses']
                 
 

@@ -1,4 +1,5 @@
 from mastermindweb import app
+from mastermindweb import db
 
 #######################################
 ########### Run Website ##############

@@ -135,5 +135,5 @@ Go to `http://127.0.0.1:5000`
 
 ## Deployed
 
-Alternatively, web app is deployed on Heroku at the following link  [`https://mastermindv1.herokuapp.com/register`](https://mastermindv1.herokuapp.com/register)
+Alternatively, web app is deployed on Heroku at the following link  [`https://mastermindv1.herokuapp.com`](https://mastermindv1.herokuapp.com)
 

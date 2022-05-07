@@ -44,6 +44,7 @@ six==1.11.0
 SQLAlchemy==1.2.6
 SQLAlchemy-Utils==0.33.2
 stripe==2.66.0
+tk==0.1.0
 urllib3==1.22
 URLObject==2.4.3
 Werkzeug==0.14.1

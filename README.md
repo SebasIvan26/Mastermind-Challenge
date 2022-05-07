@@ -58,7 +58,8 @@ For the rules of Mastermind, see this [Wikihow article](https://www.wikihow.com/
 
 #### Registration Page with expandable navigation bar
 
-![Registration](https://user-images.githubusercontent.com/56465638/166859306-1de9729a-c8ab-4549-b934-6a9af7518474.png)
+![Registration](https://user-images.githubusercontent.com/56465638/167274502-bcb2b4bc-facc-42a8-92d1-c1f409928fa4.png)
+
 
 
 
@@ -132,5 +133,7 @@ python app.py
 
 Go to `http://127.0.0.1:5000`
 
+## Deployed
 
+Alternatively, web app is deployed on Heroku at the following link  [`https://mastermindv1.herokuapp.com/register`](https://mastermindv1.herokuapp.com/register)
 

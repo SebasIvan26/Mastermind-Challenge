@@ -7,7 +7,6 @@ from flask_session import Session
 from flask import render_template, url_for, flash, redirect, request, Blueprint
 from collections import namedtuple, Counter
 
-os.geten
 gaming = Blueprint('game', __name__)
 SESSION_TYPE = 'filesystem'
 ###Remove if causes bugs

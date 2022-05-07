@@ -5,8 +5,7 @@ from flask import Flask, session
 from flask_session import Session
 from flask import render_template, url_for, flash, redirect, request, Blueprint
 from collections import namedtuple, Counter
-#from mastermindweb.configkeys import api_key
-api_key = "1e9e43f6-6f5f-4c58-bef4-689edb3ce11d"
+from mastermindweb.configkeys import random_org_apikey
 
 gaming = Blueprint('game', __name__)
 SESSION_TYPE = 'filesystem'
@@ -81,7 +80,7 @@ def generatenumbercombination(combination_len, numberof_combination):
     url = 'https://api.random.org/json-rpc/1/invoke'    # API enpoint
 
     #Query Parameters to filter returned data
-    data = {'jsonrpc':'2.0','method':'generateIntegers','params': {'apiKey':api_key,'n':combination_len,'min':0,'max':numberof_combination - 1,'replacement':'true','base':10},'id':24565}
+    data = {'jsonrpc':'2.0','method':'generateIntegers','params': {'apiKey':random_org_apikey(),'n':combination_len,'min':0,'max':numberof_combination - 1,'replacement':'true','base':10},'id':24565}
 
     params = json.dumps(data) #Convert dict to json format
     response = requests.get(url,params) # Inititate " GET " request

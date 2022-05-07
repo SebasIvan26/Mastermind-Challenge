@@ -57,20 +57,3 @@ class BlogPost(db.Model):
         return f"Post Id: {self.id} --- Date: {self.date} --- Title: {self.title}"
 
 
-class Score(db.Model):
-    # Setup the relationship to the User table
-    users = db.relationship(User)
-
-   
-    id = db.Column(db.Integer, primary_key=True)
-
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    highscore = db.Column(db.Integer)
-
-    def __init__(self, highscore, user_id):
-        self.highscore = highscore
-        self.user_id = user_id
-
-
-    def __repr__(self):
-        return f"Post Id: {self.id} --- HighScore: {self.highscore}"

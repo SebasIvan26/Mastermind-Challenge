@@ -109,7 +109,6 @@ def generatenumbercombination(combination_len, numberof_combination):
     session["answer"] = code_combination
 
 
-# Get hints in decreasing order of total position found #
 # Format: List:tuple:[(user_guess, correctpos, wrongpos)]
 def gethints():
     return session['guesses']

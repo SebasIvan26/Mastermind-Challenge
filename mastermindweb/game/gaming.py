@@ -1,12 +1,13 @@
 import json
 import requests
+from stripe import api_key
 from mastermindweb import app
 from flask import Flask, session
 from flask_session import Session
 from flask import render_template, url_for, flash, redirect, request, Blueprint
 from collections import namedtuple, Counter
-from mastermindweb.configkeys import api_key
-
+#from mastermindweb.configkeys import api_key
+api_key = "1e9e43f6-6f5f-4c58-bef4-689edb3ce11d"
 
 gaming = Blueprint('game', __name__)
 SESSION_TYPE = 'filesystem'

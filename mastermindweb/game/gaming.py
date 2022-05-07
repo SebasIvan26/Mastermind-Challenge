@@ -1,12 +1,13 @@
 import json
 import requests
+import os
 from mastermindweb import app
 from flask import Flask, session
 from flask_session import Session
 from flask import render_template, url_for, flash, redirect, request, Blueprint
 from collections import namedtuple, Counter
-from ..configkeys import random_org_apikey
 
+os.geten
 gaming = Blueprint('game', __name__)
 SESSION_TYPE = 'filesystem'
 ###Remove if causes bugs
@@ -79,8 +80,11 @@ def calculateposition(user_guess):
 def generatenumbercombination(combination_len, numberof_combination):
     url = 'https://api.random.org/json-rpc/1/invoke'    # API enpoint
 
+    # Retrieve hidden API_KEY from Heroku environment
+    random_org_api_key = os.getenv('API_KEY', 'None')
+    
     #Query Parameters to filter returned data
-    data = {'jsonrpc':'2.0','method':'generateIntegers','params': {'apiKey':random_org_apikey(),'n':combination_len,'min':0,'max':numberof_combination - 1,'replacement':'true','base':10},'id':24565}
+    data = {'jsonrpc':'2.0','method':'generateIntegers','params': {'apiKey':random_org_api_key,'n':combination_len,'min':0,'max':numberof_combination - 1,'replacement':'true','base':10},'id':24565}
 
     params = json.dumps(data) #Convert dict to json format
     response = requests.get(url,params) # Inititate " GET " request

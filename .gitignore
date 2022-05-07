@@ -180,3 +180,8 @@ mastermindweb/migrations/script.py.mako
 mastermindweb/data.sqlite
 mastermindweb/migrations/versions/30c366a50874_first_migration.py
 mastermindweb/configkeys.py
+migrations/alembic.ini
+migrations/script.py.mako
+migrations/versions/7e840c7d0d49_first_migration.py
+migrations/README
+migrations/env.py

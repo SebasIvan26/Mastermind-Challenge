@@ -5,7 +5,7 @@ from flask import Flask, session
 from flask_session import Session
 from flask import render_template, url_for, flash, redirect, request, Blueprint
 from collections import namedtuple, Counter
-from mastermindweb.configkeys import random_org_apikey
+from ..configkeys import random_org_apikey
 
 gaming = Blueprint('game', __name__)
 SESSION_TYPE = 'filesystem'

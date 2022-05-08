@@ -1,6 +1,5 @@
 import json
 import requests
-import os
 from mastermindweb import app
 from flask import Flask, session
 from flask_session import Session
@@ -77,20 +76,14 @@ def calculateposition(user_guess):
 # combination_len --> represents how many digits combination can contain
 # numberof_combination --> represesents the total different numbers combination can have
 def generatenumbercombination(combination_len, numberof_combination):
-    url = 'https://api.random.org/json-rpc/1/invoke'    # API enpoint
+    url = 'https://www.random.org/integers/'    # API enpoint
 
-    # Retrieve hidden API_KEY from Heroku environment
-    random_org_api_key = os.getenv('API_KEY', 'None')
-    
     #Query Parameters to filter returned data
-    data = {'jsonrpc':'2.0','method':'generateIntegers','params': {'apiKey':random_org_api_key,'n':combination_len,'min':0,'max':numberof_combination - 1,'replacement':'true','base':10},'id':24565}
-
-    params = json.dumps(data) #Convert dict to json format
-    response = requests.get(url,params) # Inititate " GET " request
+    params = dict(num=combination_len, min=0, max=numberof_combination - 1, col=1, base=10, format='plain', rnd='new')
 
 
     try:
-        response = requests.post(url,params, timeout=5)
+        response = requests.get(url,params) # Inititate " GET " request
         response.raise_for_status()
     except requests.exceptions.HTTPError as errh: # raised if there is a 404 error
         print(errh)
@@ -101,11 +94,7 @@ def generatenumbercombination(combination_len, numberof_combination):
     except requests.exceptions.RequestException as err: #raised if hhtp error 
         print(err)
 
-    
-    jsondict = Counter(response.json()) #Obtain response in json/dictionnary format
-    data = jsondict['result']['random']['data'] # get value in key data
-    code_combination = ''.join(map(str,data)) if isinstance(data, list) else '' # Convert List[int] -> string 
-
+    code_combination = "".join([line for line in response.text if line.strip()]) # Remove whitespaces due to 'column' -> string 
 
     #Add response/answer to session
     session["answer"] = code_combination

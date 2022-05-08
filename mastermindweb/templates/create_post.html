@@ -5,7 +5,7 @@
 <!--  
 Update instance of Flask Form from forms.py and pass back to server
 --> 
-<div class="container">
+<div class="shadow p-3 mb-5 bg-body rounded">
   <form class="form-group" method="POST">
      {{ form.hidden_tag() }}
 
@@ -21,6 +21,8 @@ Update instance of Flask Form from forms.py and pass back to server
          {{ form.submit(class="btn btn-outline-info") }}
      </div>
   </form>
+  {{ ckeditor.load() }}
+ 	{{ ckeditor.config(name='text') }}
 
 </div>
 

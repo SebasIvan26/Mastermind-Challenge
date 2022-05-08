@@ -17,7 +17,7 @@ Display posts in message board
           Written by: <a href="{{ url_for('users.user_posts', username=post.author.username) }}">{{ post.author.username }}</a>
           <p class="text-muted">Published on: {{ post.date.strftime('%Y-%m-%d') }}</p>
           <br>
-            <p>{{post.text}}</p>
+            <p>{{post.text|safe}}</p>
           <br>
 
 {% endfor %}
